@@ -18,13 +18,19 @@ func start(xform):
 
 func _process(delta):
 	transform.origin += velocity * delta
+	
+	var bodies = get_overlapping_bodies()
+
+	for body in bodies:
+		print(body)
+		if body.name == "Enemy":
+			self.queue_free()
+			body.hit()
+			on_timer_timeout()
 
 func on_timer_timeout():
-	self.queue_free()
 	get_node("/root/World/Player/").bullet_count = 0
-
-func get_bullet_position():
-	self.translation
+	self.queue_free()
 
 func set_bullet_position(position):
 	self.translation = position

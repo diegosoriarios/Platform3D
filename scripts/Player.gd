@@ -7,12 +7,13 @@ const MAX_FALL_SPEED = 30
  
 const H_LOOK_SENS = 1.0
 const V_LOOK_SENS = 1.0
- 
+
 onready var cam = $CamBase
 onready var anim = $Graphics/AnimationPlayer
 onready var bulletInstance = preload("res://Objects/Bullet.tscn")
 var bullet
 var bullet_count = 0
+var current_position
 
 var y_velo = 0
  
@@ -41,7 +42,7 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("shoot") and bullet_count == 0:
 		bullet = bulletInstance.instance()
 #		bullet.set_bullet_position(self.translation)
-		var current_position = $Position3D.global_transform
+		current_position = $Position3D.global_transform
 		bullet.start(current_position)
 		bullet_count += 1
 		get_node("/root/World/").add_child(bullet)
@@ -75,3 +76,6 @@ func play_anim(name):
 	if anim.current_animation == name:
 		return
 	anim.play(name)
+
+func get_current_position():
+	return current_position
