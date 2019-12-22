@@ -14,6 +14,7 @@ onready var bulletInstance = preload("res://Objects/Bullet.tscn")
 var bullet
 var bullet_count = 0
 var current_position
+var hp = 5
 
 var y_velo = 0
  
@@ -79,3 +80,7 @@ func play_anim(name):
 
 func get_current_position():
 	return current_position
+
+func hit():
+	hp -= 1
+	print(hp)
